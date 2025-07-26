@@ -13,11 +13,11 @@ app.register_blueprint(forum_bp)
 def home():
     return render_template('index.html')
 
-@app.route('/pages/writePost.html')
+@app.route('/templates/writePost.html')
 def writePost():
     return render_template('writePost.html')
 
-@app.route('/pages/index.html')
+@app.route('/templates/index.html')
 def index():
     return render_template('index.html')
 
