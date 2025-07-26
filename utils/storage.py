@@ -2,9 +2,7 @@
 # saves submissions to a JSON file
 
 import json
-import os # we need this to check if certain files exist
-
-DATA_FILE = 'data/submissions.json' # save the name of the data file for easy use
+import os
 
 def save_post(name, message, tag):
     file_path = 'data/posts.json'
