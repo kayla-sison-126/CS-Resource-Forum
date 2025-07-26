@@ -6,21 +6,21 @@ import os # we need this to check if certain files exist
 
 DATA_FILE = 'data/submissions.json' # save the name of the data file for easy use
 
-def save_submission(name, email): # function that saves data to the file
-    try:
-        if not os.path.exists(DATA_FILE): # if file DNE yet,
-            with open(DATA_FILE, 'w') as f: # create file (open in Write mode)
-                json.dump([], f)            # init file with empty JSON array ([])
+def save_post(name, message):
+    file_path = 'data/posts.json'
+    os.makedirs('data', exist_ok=True)
 
-        with open(DATA_FILE, 'r') as f: # open file in Read mode
-            data = json.load(f)         # store data from JSON file into a list called data
+    posts = []
+    if os.path.exists(file_path):
+        try:
+            with open(file_path, 'r') as f:
+                content = f.read().strip()
+                if content:
+                    posts = json.loads(content)
+        except (json.JSONDecodeError, ValueError):
+            posts = []
 
-        data.append({"name": name, "email": email}) # append new submission to list
+    posts.append({'name': name, 'message': message})
 
-        with open(DATA_FILE, 'w') as f: # open file again in Write mode
-            json.dump(data, f, indent=2) # dump the whole list back into the JSON file
-
-        return True
-    except Exception as e: # if any error occurs during the operations above,
-        print(f"Error saving submission: {e}") # print error msg
-        return False
+    with open(file_path, 'w') as f:
+        json.dump(posts, f, indent=2)

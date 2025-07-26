@@ -1,20 +1,33 @@
 from flask import Blueprint, request, jsonify
-from utils.storage import save_submission
+from utils.storage import save_post
+import json
 
-submit_blueprint = Blueprint('submit', __name__) # create a blueprint called submit_blueprint
+forum_bp = Blueprint('forum', __name__)
 
-@submit_blueprint.route('/submit', methods=['POST']) # using the blueprint, define a route that accepts POST requests
-def submit():
-    data = request.json
+@forum_bp.route('/submit', methods=['POST'])
+def submit_post():
+    data = request.get_json()
     name = data.get('name')
-    email = data.get('email')
+    message = data.get('message')
 
-    if not name or not email:
-        return jsonify({"error": "Missing name or email"}), 400
+    if not name or not message:
+        return jsonify({'error': 'Name and message are required'}), 400
 
-    success = save_submission(name, email)
+    try:
+        save_post(name, message)
+        return jsonify({'message': 'Post submitted successfully!'})
+    except Exception as e:
+        return jsonify({'error': f'Failed to save post: {str(e)}'}), 500
 
-    if success:
-        return jsonify({"message": "Data saved!"})
-    else:
-        return jsonify({"error": "Failed to save data"}), 500
+@forum_bp.route('/posts', methods=['GET'])
+def get_posts():
+    try:
+        with open('data/posts.json', 'r') as f:
+            content = f.read().strip()
+            if content:
+                posts = json.loads(content)
+            else:
+                posts = []
+        return jsonify(posts)
+    except Exception as e:
+        return jsonify({'error': f'Could not load posts: {str(e)}'}), 500
