@@ -3,16 +3,14 @@
 
 A simple but powerful API + front-end web app that allows students to **share and discover helpful Computer Science resources**. Built with **Flask** and **vanilla JavaScript**, the project showcases full-stack capabilities and serves as a lightweight community forum.
 
-#### In Summary:
+#### Project Summary:
 - A searchable resource sharing forum with full CRUD functionality
 - RESTful API routes and lightweight JSON storage for posts
-- Deployed to AWS EC2
+- Deployed to AWS EC2 here: http://3.145.3.180
 - Implemented frontend search and like features with JavaScript
-
 
 ![Screenshot of the CS Resource Forum](assets/CSR_demo_GIF.gif)
 
-Deployed using AWS EC2 here: http://3.145.3.180
 
 ## 🚀 Features
 
