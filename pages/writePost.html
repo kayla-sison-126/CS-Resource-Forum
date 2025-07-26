@@ -31,7 +31,6 @@
         border-radius: 8px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
       }
-
     </style>
   </head>
   <body>
@@ -43,41 +42,51 @@
           students!
         </p>
         <button
-          onclick="location.href='/templates/index.html'"
+          onclick="location.href='/pages/index.html'"
           class="btn btn-info"
           style="margin-top: 12px; margin-right: 4px"
         >
           Home
         </button>
         <button
-          onclick="location.href='/templates/writePost.html'"
+          onclick="location.href='/pages/writePost.html'"
           class="btn btn-info"
           style="margin-top: 12px"
         >
           Write a Post
         </button>
-    </div>
-    
-    <h2 class="mb-4 text-white">📚 Write a Post!</h2>
+      </div>
+
+      <h2 class="mb-4 text-white">📚 Write a Post!</h2>
       <div class="form-section">
         <form id="postForm">
           <div class="mb-3">
             <label for="name" class="form-label">Your Name</label>
             <input
-            type="text"
-            class="form-control"
-            id="name"
-            placeholder="e.g. Jane"
-            required
+              type="text"
+              class="form-control"
+              id="name"
+              placeholder="e.g. Jane"
+              required
             />
-        </div>
+          </div>
+          <div class="mb-3">
+            <label for="tag" class="form-label">Tag</label>
+            <input
+              type="text"
+              class="form-control"
+              id="tag"
+              placeholder="e.g. general, beginner, web dev, AI, career..."
+              required
+            />
+          </div>
           <div class="mb-3">
             <label for="message" class="form-label">Resource or Tip</label>
             <textarea
               class="form-control"
               id="message"
               rows="4"
-              placeholder="Share a link, repo, tool, or study strategy..."
+              placeholder="Share a link, repo, tool, or study strategy!"
               required
             ></textarea>
           </div>
@@ -87,7 +96,6 @@
       </div>
 
       <hr class="my-5" />
-
     </div>
 
     <script>
@@ -97,11 +105,12 @@
           e.preventDefault();
           const name = document.getElementById("name").value;
           const message = document.getElementById("message").value;
+          const tag = document.getElementById("tag").value;
 
           const response = await fetch("/submit", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name, message }),
+            body: JSON.stringify({ name, message, tag }),
           });
 
           const result = await response.json();
@@ -110,33 +119,7 @@
           msg.className = response.ok ? "text-success" : "text-danger";
 
           document.getElementById("postForm").reset();
-          loadPosts();
         });
-
-      async function loadPosts() {
-        const res = await fetch("/posts");
-        const data = await res.json();
-        const list = document.getElementById("postList");
-        list.innerHTML = "";
-
-        if (data.length === 0) {
-          list.innerHTML = `<p class="text-muted">No posts yet. Be the first to share something!</p>`;
-        }
-
-        data.reverse().forEach((post) => {
-          const card = document.createElement("div");
-          card.className = "card post-card";
-          card.innerHTML = `
-          <div class="card-body">
-            <h5 class="card-title">${post.name}</h5>
-            <p class="card-text">${post.message}</p>
-          </div>
-        `;
-          list.appendChild(card);
-        });
-      }
-
-      loadPosts();
     </script>
   </body>
 </html>

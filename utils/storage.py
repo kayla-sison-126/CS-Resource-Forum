@@ -6,7 +6,7 @@ import os # we need this to check if certain files exist
 
 DATA_FILE = 'data/submissions.json' # save the name of the data file for easy use
 
-def save_post(name, message):
+def save_post(name, message, tag):
     file_path = 'data/posts.json'
     os.makedirs('data', exist_ok=True)
 
@@ -20,7 +20,23 @@ def save_post(name, message):
         except (json.JSONDecodeError, ValueError):
             posts = []
 
-    posts.append({'name': name, 'message': message})
+    posts.append({
+        'name': name,
+        'message': message,
+        'tag': tag,
+        'likes': 0
+    })
+
+    with open(file_path, 'w') as f:
+        json.dump(posts, f, indent=2)
+
+def update_likes(index):
+    file_path = 'data/posts.json'
+    with open(file_path, 'r') as f:
+        posts = json.load(f)
+
+    if 0 <= index < len(posts):
+        posts[index]['likes'] += 1
 
     with open(file_path, 'w') as f:
         json.dump(posts, f, indent=2)

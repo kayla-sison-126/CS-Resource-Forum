@@ -13,18 +13,18 @@ app.register_blueprint(forum_bp)
 def home():
     return render_template('index.html')
 
-@app.route('/templates/writePost.html')
+@app.route('/pages/writePost.html')
 def writePost():
     return render_template('writePost.html')
 
-@app.route('/templates/index.html')
+@app.route('/pages/index.html')
 def index():
     return render_template('index.html')
 
 @app.route('/submissions', methods=['GET'])
 def get_submissions():
     file_path = 'data/submissions.json'
-    
+
     if not os.path.exists(file_path):
         return jsonify([]), 200
 
