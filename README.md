@@ -5,6 +5,7 @@ A simple but powerful API + front-end web app that allows students to **share an
 
 ![Screenshot of the CS Resource Forum](assets/CSR_demo_GIF.gif)
 
+Deployed using AWS EC2 here: http://3.145.3.180
 
 ## 🚀 Features
 
