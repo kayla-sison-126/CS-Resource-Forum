@@ -1,5 +1,5 @@
 # 💻 CS Resource Forum
-`Python` `Flask` `AWS` `JavaScript` `HTML` `Bootstrap 5` `CSS` `Postman`
+`Python` `Flask` `AWS EC2` `JavaScript` `HTML` `Bootstrap 5` `CSS` `Postman`
 
 A simple but powerful API + front-end web app that allows students to **share and discover helpful Computer Science resources**. Built with **Flask** and **vanilla JavaScript**, the project showcases full-stack capabilities and serves as a lightweight community forum.
 
